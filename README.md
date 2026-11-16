@@ -5,6 +5,8 @@
 仓库：<https://github.com/GitZhiQing/mono-markdown-preview>  
 CI：<https://github.com/GitZhiQing/mono-markdown-preview/actions/workflows/ci.yml>
 
+[![CI](https://github.com/GitZhiQing/mono-markdown-preview/actions/workflows/ci.yml/badge.svg)](https://github.com/GitZhiQing/mono-markdown-preview/actions/workflows/ci.yml)
+
 ![目录与预览](docs/screenshots/native-dark-toc.png)
 
 ## 特点
