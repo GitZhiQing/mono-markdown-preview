@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dfe8f3"/>
+      <stop offset="0.55" stop-color="#f3eee5"/>
+      <stop offset="1" stop-color="#e8ddd0"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9fb4c8"/>
+      <stop offset="1" stop-color="#6f879e"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c3b39f"/>
+      <stop offset="1" stop-color="#a28d75"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="480" fill="url(#sky)"/>
+  <circle cx="930" cy="120" r="54" fill="#f7f2e7" opacity="0.9"/>
+  <path d="M0 330 Q 210 210 420 310 T 840 300 T 1200 340 V480 H0 Z" fill="url(#hill)" opacity="0.85"/>
+  <path d="M0 390 Q 260 300 520 380 T 1040 370 T 1200 400 V480 H0 Z" fill="url(#hill2)" opacity="0.9"/>
+  <path d="M0 440 Q 300 400 600 440 T 1200 430 V480 H0 Z" fill="#5e6f7e" opacity="0.75"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2">
+    <path d="M80 90 h180"/>
+    <path d="M80 110 h120"/>
+  </g>
+  <text x="80" y="170" font-family="Georgia, 'Noto Serif SC', serif" font-size="46" fill="#33404d">安静的力量</text>
+  <text x="82" y="212" font-family="Georgia, 'Noto Serif SC', serif" font-size="20" fill="#5d6b78">The quiet power of typography</text>
+</svg>

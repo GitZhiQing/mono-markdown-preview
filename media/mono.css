@@ -1,0 +1,596 @@
+/*
+ * Mono — minimal high-contrast styling for VS Code's native Markdown preview.
+ * Black / white / gray with #1a88ff as the only accent.
+ * English text uses a monospace stack; CJK falls back to a clean sans.
+ */
+
+:root {
+  --font-mono: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Menlo,
+    Consolas, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* ===== Page shell ===== */
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html {
+  background: transparent !important;
+}
+
+body {
+  --bg: #ffffff;
+  --text: #111111;
+  --heading: #000000;
+  --muted: #666666;
+  --faint: #737373;
+  --quote-text: #555555;
+  --border: #e3e3e3;
+  --border-strong: #111111;
+  --accent: #1a88ff;
+  --accent-hover: #006edc;
+  --code-bg: #f7f7f7;
+  --inline-code-bg: #f2f2f2;
+  --table-header-bg: #f5f5f5;
+  --mark-bg: #dcecff;
+  --selection-bg: #cfe6ff;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--markdown-font-size, 15px);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.vscode-light {
+  --bg: #ffffff;
+  --text: #111111;
+  --heading: #000000;
+  --muted: #666666;
+  --faint: #737373;
+  --quote-text: #555555;
+  --border: #e3e3e3;
+  --border-strong: #111111;
+  --accent: #1a88ff;
+  --accent-hover: #006edc;
+  --code-bg: #f7f7f7;
+  --inline-code-bg: #f2f2f2;
+  --table-header-bg: #f5f5f5;
+  --mark-bg: #dcecff;
+  --selection-bg: #cfe6ff;
+  color-scheme: light;
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+body.vscode-dark {
+  --bg: #0a0a0a;
+  --text: #f2f2f2;
+  --heading: #ffffff;
+  --muted: #a3a3a3;
+  --faint: #8a8a8a;
+  --quote-text: #c7c7c7;
+  --border: #2a2a2a;
+  --border-strong: #f2f2f2;
+  --accent: #1a88ff;
+  --accent-hover: #66b3ff;
+  --code-bg: #141414;
+  --inline-code-bg: #1a1a1a;
+  --table-header-bg: #161616;
+  --mark-bg: #0d2a4d;
+  --selection-bg: #123d6b;
+  color-scheme: dark;
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+body.vscode-high-contrast {
+  --bg: #000000;
+  --text: #ffffff;
+  --heading: #ffffff;
+  --muted: #d0d0d0;
+  --faint: #b0b0b0;
+  --quote-text: #e0e0e0;
+  --border: #ffffff;
+  --border-strong: #ffffff;
+  --accent: #1a88ff;
+  --accent-hover: #66b3ff;
+  --code-bg: #000000;
+  --inline-code-bg: #111111;
+  --table-header-bg: #000000;
+  --mark-bg: #003a66;
+  --selection-bg: #004d99;
+  color-scheme: dark;
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* ===== Content column ===== */
+.markdown-body {
+  box-sizing: border-box;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5em 2.5em 4em;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--markdown-font-size, 15px);
+  line-height: 1.7;
+  text-align: left;
+  word-break: break-word;
+}
+
+@media (max-width: 700px) {
+  .markdown-body {
+    padding: 1.5em 1.2em 3em;
+  }
+}
+
+.markdown-body > :first-child {
+  margin-top: 0 !important;
+}
+
+/* ===== Headings ===== */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  color: var(--heading);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+  margin-bottom: 0.65em;
+}
+
+.markdown-body h1 {
+  margin-top: 0;
+  padding-bottom: 0.35em;
+  border-bottom: 2px solid var(--border-strong);
+  font-size: 1.9em;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.45em;
+}
+
+.markdown-body h2::before {
+  content: "\25A0";
+  display: inline-block;
+  margin-right: 0.45em;
+  color: var(--accent);
+  font-size: 0.62em;
+  line-height: 1;
+  vertical-align: 0.1em;
+}
+
+.markdown-body h3 {
+  font-size: 1.2em;
+}
+
+.markdown-body h4 {
+  font-size: 1.05em;
+}
+
+.markdown-body h5,
+.markdown-body h6 {
+  color: var(--muted);
+  font-size: 1em;
+}
+
+/* ===== Text ===== */
+.markdown-body p {
+  margin: 0.9em 0;
+}
+
+.markdown-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.markdown-body a:hover {
+  color: var(--accent-hover);
+}
+
+.markdown-body strong,
+.markdown-body b {
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.markdown-body em {
+  font-style: italic;
+}
+
+.markdown-body del {
+  color: var(--muted);
+}
+
+.markdown-body mark {
+  padding: 0 0.15em;
+  border-radius: 0;
+  background-color: var(--mark-bg);
+  color: inherit;
+}
+
+/* ===== Lists ===== */
+.markdown-body ul,
+.markdown-body ol {
+  margin: 0.8em 0 1em;
+  padding-left: 1.6em;
+}
+
+.markdown-body li {
+  margin: 0.3em 0;
+}
+
+.markdown-body li::marker {
+  color: var(--muted);
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ul,
+.markdown-body ol ol {
+  margin: 0.2em 0;
+}
+
+.markdown-body .task-list-item {
+  list-style: none;
+}
+
+.markdown-body .task-list-item input[type="checkbox"] {
+  width: 1em;
+  height: 1em;
+  margin: 0 0.5em 0.18em -1.5em;
+  vertical-align: middle;
+  accent-color: var(--accent);
+}
+
+/* ===== Quotes ===== */
+.markdown-body blockquote {
+  margin: 1.4em 0;
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 3px solid var(--accent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--quote-text);
+}
+
+.markdown-body blockquote p {
+  margin: 0.5em 0;
+}
+
+.markdown-body blockquote blockquote {
+  border-left-color: var(--muted);
+}
+
+/* ===== Rules ===== */
+.markdown-body hr {
+  height: 0;
+  margin: 2.5em 0;
+  border: 0;
+  border-top: 1px solid var(--border-strong);
+}
+
+/* ===== Code ===== */
+.markdown-body code {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background-color: var(--inline-code-bg);
+  color: var(--heading);
+  font-family: var(--font-mono) !important;
+  font-size: 0.9em;
+  text-shadow: none;
+}
+
+.markdown-body pre {
+  margin: 1.4em 0 !important;
+  padding: 1em 1.1em !important;
+  overflow-x: auto;
+  border: 1px solid var(--border) !important;
+  border-radius: 2px !important;
+  background-color: var(--code-bg) !important;
+  color: var(--text);
+  box-shadow: none !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.9em !important;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.markdown-body pre code {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  text-shadow: none;
+}
+
+.markdown-body pre.hljs code > div {
+  padding: 0 !important;
+}
+
+/* ===== Tables ===== */
+.markdown-body table {
+  display: table;
+  width: 100%;
+  margin: 1.5em 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-top: 2px solid var(--border-strong) !important;
+  border-bottom: 2px solid var(--border-strong) !important;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 0.95em;
+}
+
+.markdown-body thead {
+  background-color: var(--table-header-bg);
+}
+
+.markdown-body th {
+  padding: 0.55em 0.8em;
+  border-bottom: 1px solid var(--border-strong);
+  color: var(--heading);
+  font-weight: 700;
+  text-align: left;
+}
+
+.markdown-body td {
+  padding: 0.55em 0.8em;
+  border: 0;
+  text-align: left;
+}
+
+.markdown-body tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.markdown-body tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.markdown-body tbody tr:hover {
+  background-color: var(--table-header-bg);
+}
+
+/* Keep YAML frontmatter tables readable. */
+.markdown-body table.frontmatter th,
+.markdown-body table.frontmatter td {
+  border: 1px solid var(--border) !important;
+}
+
+/* ===== Media ===== */
+.markdown-body img,
+.markdown-body video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ===== Misc ===== */
+.markdown-body kbd {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: 2px;
+  background-color: var(--bg);
+  color: var(--heading);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.markdown-body ::selection {
+  background: var(--selection-bg);
+  color: var(--heading);
+}
+
+/* ===== highlight.js palette ===== */
+.markdown-body .hljs-comment,
+.markdown-body .hljs-quote {
+  color: var(--faint) !important;
+  font-style: italic;
+}
+
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-name,
+.markdown-body .hljs-symbol,
+.markdown-body .hljs-selector-tag {
+  color: var(--accent) !important;
+}
+
+.markdown-body .hljs-string,
+.markdown-body .hljs-meta-string,
+.markdown-body .hljs-attr,
+.markdown-body .hljs-attribute,
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-type {
+  color: var(--quote-text) !important;
+}
+
+.markdown-body .hljs-number,
+.markdown-body .hljs-class {
+  color: var(--heading) !important;
+}
+
+.markdown-body .hljs-function,
+.markdown-body .hljs-title {
+  color: var(--heading) !important;
+  font-weight: 700;
+}
+
+.markdown-body .hljs-tag,
+.markdown-body .hljs-section,
+.markdown-body .hljs-property {
+  color: var(--heading) !important;
+}
+
+.markdown-body .hljs-variable,
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-template-tag,
+.markdown-body .hljs-deletion {
+  color: var(--accent) !important;
+}
+
+.markdown-body .hljs-addition {
+  color: var(--heading) !important;
+}
+
+.markdown-body .hljs-meta,
+.markdown-body .hljs-doctag {
+  color: var(--faint) !important;
+}
+
+.markdown-body .hljs-operator,
+.markdown-body .hljs-punctuation {
+  color: var(--text) !important;
+}
+
+.markdown-body .hljs-link {
+  color: var(--accent) !important;
+  text-decoration: underline;
+}
+
+.markdown-body .hljs-emphasis {
+  font-style: italic;
+}
+
+.markdown-body .hljs-strong {
+  font-weight: 700;
+}
+
+/* ===== Scrollbars ===== */
+:is(
+    html,
+    body,
+    body.scrollbar-style,
+    .markdown-body,
+    pre,
+    #mono-toc-root .mono-toc-panel
+  )::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+:is(
+    html,
+    body,
+    body.scrollbar-style,
+    .markdown-body,
+    pre,
+    #mono-toc-root .mono-toc-panel
+  )::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:is(
+    html,
+    body,
+    body.scrollbar-style,
+    .markdown-body,
+    pre,
+    #mono-toc-root .mono-toc-panel
+  )::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 2px;
+  background-color: var(--faint, #737373);
+  background-clip: content-box;
+}
+
+:is(
+    html,
+    body,
+    body.scrollbar-style,
+    .markdown-body,
+    pre,
+    #mono-toc-root .mono-toc-panel
+  )::-webkit-scrollbar-thumb:hover,
+:is(
+    html,
+    body,
+    body.scrollbar-style,
+    .markdown-body,
+    pre,
+    #mono-toc-root .mono-toc-panel
+  )::-webkit-scrollbar-thumb:active {
+  background-color: var(--accent, #1a88ff);
+}
+
+:is(
+    html,
+    body,
+    body.scrollbar-style,
+    .markdown-body,
+    pre,
+    #mono-toc-root .mono-toc-panel
+  )::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+:is(
+    html,
+    body,
+    body.scrollbar-style,
+    .markdown-body,
+    pre,
+    #mono-toc-root .mono-toc-panel
+  )::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@supports (-moz-appearance: none) {
+  html,
+  body,
+  .markdown-body,
+  pre,
+  #mono-toc-root .mono-toc-panel {
+    scrollbar-width: thin;
+    scrollbar-color: var(--faint, #737373) transparent;
+  }
+}
+
+/* ===== Print: always use a readable light palette ===== */
+@media print {
+  body.vscode-dark,
+  body.vscode-high-contrast {
+    --bg: #ffffff;
+    --text: #111111;
+    --heading: #000000;
+    --muted: #666666;
+    --faint: #737373;
+    --quote-text: #555555;
+    --border: #e3e3e3;
+    --border-strong: #111111;
+    --accent: #1a88ff;
+    --accent-hover: #006edc;
+    --code-bg: #f7f7f7;
+    --inline-code-bg: #f2f2f2;
+    --table-header-bg: #f5f5f5;
+    --mark-bg: #dcecff;
+    --selection-bg: #cfe6ff;
+    background-color: #ffffff !important;
+    color: #111111 !important;
+  }
+}

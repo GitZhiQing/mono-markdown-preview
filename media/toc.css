@@ -1,0 +1,188 @@
+/* Floating table of contents for the Mono native preview / exported HTML. */
+
+#mono-toc-root {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  font-family: var(--font-mono, "JetBrains Mono", Menlo, Consolas, monospace);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#mono-toc-root .mono-toc-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#mono-toc-root .mono-toc-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.45em 0.7em;
+  border: 1px solid var(--border, #e3e3e3);
+  border-radius: 2px;
+  background: var(--bg, #ffffff);
+  color: var(--text, #111111);
+  font: inherit;
+  cursor: pointer;
+  user-select: none;
+}
+
+#mono-toc-root .mono-toc-browser {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border, #e3e3e3);
+  border-radius: 2px;
+  background: var(--bg, #ffffff);
+  color: var(--text, #111111);
+  text-decoration: none;
+}
+
+#mono-toc-root .mono-toc-browser:hover,
+#mono-toc-root .mono-toc-browser:focus-visible {
+  border-color: var(--accent, #1a88ff);
+  color: var(--accent, #1a88ff);
+  outline: none;
+}
+
+#mono-toc-root .mono-toc-browser svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+#mono-toc-root .mono-toc-button::before {
+  content: "\2630";
+  color: var(--accent, #1a88ff);
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+#mono-toc-root .mono-toc-button:hover,
+#mono-toc-root .mono-toc-button:focus-visible {
+  border-color: var(--accent, #1a88ff);
+  color: var(--accent, #1a88ff);
+  outline: none;
+}
+
+#mono-toc-root .mono-toc-panel {
+  display: none;
+  position: fixed;
+  right: 24px;
+  bottom: 68px;
+  box-sizing: border-box;
+  width: 280px;
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--border, #e3e3e3);
+  border-radius: 2px;
+  background: var(--bg, #ffffff);
+  color: var(--text, #111111);
+}
+
+#mono-toc-root.mono-toc-open .mono-toc-panel {
+  display: block;
+}
+
+#mono-toc-root .mono-toc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border, #e3e3e3);
+  color: var(--muted, #666666);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#mono-toc-root .mono-toc-close {
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--muted, #666666);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#mono-toc-root .mono-toc-close:hover {
+  color: var(--accent, #1a88ff);
+}
+
+#mono-toc-root .mono-toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#mono-toc-root .mono-toc-item {
+  margin: 1px 0;
+  padding-left: 0;
+}
+
+#mono-toc-root .mono-toc-sub {
+  margin: 1px 0 1px 9px;
+  padding: 0 0 0 9px;
+  border-left: 1px dashed var(--faint, #737373);
+  list-style: none;
+}
+
+#mono-toc-root .mono-toc-item a {
+  display: block;
+  overflow: hidden;
+  padding: 2px 4px 2px 8px;
+  border-left: 2px solid transparent;
+  color: var(--muted, #666666);
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#mono-toc-root .mono-toc-item a:hover {
+  color: var(--accent, #1a88ff);
+}
+
+#mono-toc-root .mono-toc-item a.active {
+  border-left-color: var(--accent, #1a88ff);
+  color: var(--accent, #1a88ff);
+  font-weight: 700;
+}
+
+/* Shift the centered content left only when there is room for the panel. */
+@media (min-width: 1280px) {
+  body.mono-toc-open .markdown-body {
+    margin-right: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  #mono-toc-root {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  #mono-toc-root .mono-toc-panel {
+    right: 16px;
+    bottom: 60px;
+    width: calc(100vw - 32px);
+    max-height: 55vh;
+  }
+}
+
+@media print {
+  #mono-toc-root {
+    display: none !important;
+  }
+}

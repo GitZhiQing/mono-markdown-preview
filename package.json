@@ -1,0 +1,95 @@
+{
+  "name": "mono-markdown-preview",
+  "displayName": "Mono Markdown Preview",
+  "description": "为 VS Code 原生 Markdown 预览提供极简高对比样式、浮动目录和浏览器 HTML 导出。",
+  "version": "1.3.3",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "preview",
+    "mono",
+    "toc",
+    "minimal",
+    "monospace"
+  ],
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GitZhiQing/mono-markdown-preview.git"
+  },
+  "homepage": "https://github.com/GitZhiQing/mono-markdown-preview#readme",
+  "bugs": {
+    "url": "https://github.com/GitZhiQing/mono-markdown-preview/issues"
+  },
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onCommand:monoMarkdown.openInBrowser",
+    "onLanguage:markdown"
+  ],
+  "scripts": {
+    "test": "node test/pure.test.js && node test/export-server.test.js",
+    "package": "npx --yes @vscode/vsce package --no-dependencies"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "monoMarkdown.openInBrowser",
+        "title": "在浏览器打开 HTML",
+        "category": "Mono",
+        "icon": "$(browser)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "monoMarkdown.openInBrowser",
+          "when": "resourceLangId == markdown",
+          "group": "navigation@90"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "monoMarkdown.openInBrowser",
+          "when": "resourceLangId == markdown",
+          "group": "navigation@90"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "monoMarkdown.openInBrowser",
+          "when": "editorLangId == markdown",
+          "group": "navigation@90"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "monoMarkdown.openInBrowser",
+          "when": "resourceLangId == markdown",
+          "group": "navigation@90"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "monoMarkdown.openInBrowser",
+          "when": "editorLangId == markdown"
+        }
+      ]
+    },
+    "markdown.previewStyles": [
+      "./media/mono.css",
+      "./media/toc.css"
+    ],
+    "markdown.previewScripts": [
+      {
+        "path": "./media/toc.js"
+      }
+    ]
+  }
+}
