@@ -1,6 +1,6 @@
 # Mono Markdown Preview
 
-给 VS Code 原生 Markdown 预览用的极简主题。以黑白灰为主，蓝色 `#1a88ff` 只做点缀；英文使用等宽字体，中文回退到黑体。附带浮动目录和“在浏览器打开 HTML”。
+给 VS Code 原生 Markdown 预览用的极简主题。以黑白灰为主，蓝色 `#1a88ff` 只做点缀；英文使用等宽字体，中文回退到黑体。附带代码块增强、LaTeX、浮动目录和“在浏览器打开 HTML”。
 
 仓库：<https://github.com/GitZhiQing/mono-markdown-preview>  
 CI：<https://github.com/GitZhiQing/mono-markdown-preview/actions/workflows/ci.yml>
@@ -14,6 +14,8 @@ CI：<https://github.com/GitZhiQing/mono-markdown-preview/actions/workflows/ci.y
 - 高对比黑白灰，自动跟随 VS Code 的亮色、暗色和高对比主题
 - 英文 JetBrains Mono，中文 Noto Sans SC / 微软雅黑
 - 标题、引用、表格、代码块、图片都按印刷风格处理，不用大圆角、渐变和阴影
+- 代码块使用 Mono Blue 高亮：左上角显示语言图标和名称，带行号、单块折行开关和复制按钮
+- 行内公式 `$...$` 和块级公式 `$$...$$` 使用 KaTeX 渲染；导出的 HTML 也带完整公式样式和字体
 - 细滚动条：8px、透明轨道、悬停变蓝、无上下箭头
 - 浮动目录：按标题层级嵌套，带垂直虚线，当前章节蓝色高亮
 - 在浏览器打开：预览里的地球按钮，或编辑器标题栏的浏览器图标
@@ -27,7 +29,7 @@ CI：<https://github.com/GitZhiQing/mono-markdown-preview/actions/workflows/ci.y
 从 VSIX 安装：
 
 ```powershell
-code --install-extension mono-markdown-preview-1.3.3.vsix
+code --install-extension mono-markdown-preview-1.4.0.vsix
 ```
 
 也可以在 VS Code 扩展面板里点 `...` → **Install from VSIX**。
@@ -37,6 +39,31 @@ code --install-extension mono-markdown-preview-1.3.3.vsix
 1. 打开 Markdown 文件。
 2. 按 `Ctrl+Shift+V` 打开原生预览。
 3. 点右下角 **目录** 查看大纲；点地球图标在浏览器中打开 HTML 版本。
+
+## 代码块
+
+- 左上角显示代码图标和语言名称，例如 `JavaScript`、`HTML`、`CSS`
+- 左侧显示逻辑行号；代码块内的换行会在复制时保留
+- 右上角 **复制** 复制整段代码，**折行** 切换当前代码块的自动换行
+- 使用扩展内置的 Mono Blue 高亮，亮色和暗色分别取不同的蓝色层级
+- 如果 VS Code 的 `markdown.preview.wordWrap` 已开启，代码块默认折行，按钮显示 **不折行**
+
+## 数学公式
+
+原生预览使用 VS Code 内置的 KaTeX：
+
+```markdown
+行内公式 $E = mc^2$。
+
+$$
+\int_0^1 x^2 \, dx = \frac{1}{3}
+$$
+```
+
+- 支持 `$...$` 和 `$$...$$`；请保持内置的 `markdown-math` 扩展启用
+- 设置项 `markdown.math.enabled` 需要为 `true`
+- 导出的 HTML 会在检测到公式时内联 KaTeX 样式和字体，不依赖网络
+- 数学宏可以通过 `markdown.math.macros` 配置
 
 ## 目录
 
@@ -69,7 +96,8 @@ code --install-extension mono-markdown-preview-1.3.3.vsix
 ## 已知限制
 
 - VS Code 原生预览不渲染任务清单勾选框
-- Mermaid、数学公式等依赖预览脚本的内容，导出的 HTML 可能显示不完整
+- Mermaid 等依赖预览脚本的内容，导出的 HTML 可能显示不完整
+- 数学公式请使用 `$...$` / `$$...$$`；VS Code 内置数学扩展不识别 `\(...\)` 和 `\[...\]`
 - 导出的 HTML 主要面向标准 Markdown，指向其他本地文件的相对链接不会自动转换
 
 ## 开发
@@ -96,6 +124,10 @@ src/
 media/
   mono.css              预览样式
   toc.css / toc.js      目录样式与脚本
+  highlight-mono.css    Mono Blue 代码高亮
+  code-blocks.css / code-blocks.js
+                        行号、折行、复制与语言标签
+  katex.css             导出用 KaTeX 样式（字体已内联）
   vscode-markdown.css   导出用基础样式
   vscode-highlight.css
   icon.png / icon.svg
@@ -106,10 +138,12 @@ test/
 docs/
   NATIVE-PREVIEW.md
   screenshots/
-.github/workflows/package.yml
+.github/workflows/ci.yml
+.github/workflows/release.yml
 package.json
 CHANGELOG.md
 SECURITY.md
+THIRD-PARTY-NOTICES.md
 LICENSE
 ```
 
@@ -135,4 +169,4 @@ VSCodium / Open VSX 可以用 `ovsx` 发布同一个 VSIX。
 
 ## 许可
 
-MIT，见 [LICENSE](LICENSE)。
+MIT，见 [LICENSE](LICENSE)。代码高亮基于 highlight.js 的 Mono Blue 主题，公式样式与字体来自 KaTeX；第三方许可见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。

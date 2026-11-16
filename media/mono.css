@@ -387,6 +387,28 @@ body.vscode-high-contrast {
   box-shadow: none;
 }
 
+/* ===== Math (KaTeX) ===== */
+.markdown-body .katex {
+  font-size: 1.05em;
+}
+
+.markdown-body .katex-display {
+  margin: 1.4em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
+.markdown-body .katex-block {
+  margin: 1.4em 0;
+  overflow-x: auto;
+}
+
+.markdown-body .katex-error {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 /* ===== Misc ===== */
 .markdown-body kbd {
   padding: 0.1em 0.35em;
@@ -402,81 +424,6 @@ body.vscode-high-contrast {
 .markdown-body ::selection {
   background: var(--selection-bg);
   color: var(--heading);
-}
-
-/* ===== highlight.js palette ===== */
-.markdown-body .hljs-comment,
-.markdown-body .hljs-quote {
-  color: var(--faint) !important;
-  font-style: italic;
-}
-
-.markdown-body .hljs-keyword,
-.markdown-body .hljs-literal,
-.markdown-body .hljs-name,
-.markdown-body .hljs-symbol,
-.markdown-body .hljs-selector-tag {
-  color: var(--accent) !important;
-}
-
-.markdown-body .hljs-string,
-.markdown-body .hljs-meta-string,
-.markdown-body .hljs-attr,
-.markdown-body .hljs-attribute,
-.markdown-body .hljs-built_in,
-.markdown-body .hljs-type {
-  color: var(--quote-text) !important;
-}
-
-.markdown-body .hljs-number,
-.markdown-body .hljs-class {
-  color: var(--heading) !important;
-}
-
-.markdown-body .hljs-function,
-.markdown-body .hljs-title {
-  color: var(--heading) !important;
-  font-weight: 700;
-}
-
-.markdown-body .hljs-tag,
-.markdown-body .hljs-section,
-.markdown-body .hljs-property {
-  color: var(--heading) !important;
-}
-
-.markdown-body .hljs-variable,
-.markdown-body .hljs-regexp,
-.markdown-body .hljs-template-tag,
-.markdown-body .hljs-deletion {
-  color: var(--accent) !important;
-}
-
-.markdown-body .hljs-addition {
-  color: var(--heading) !important;
-}
-
-.markdown-body .hljs-meta,
-.markdown-body .hljs-doctag {
-  color: var(--faint) !important;
-}
-
-.markdown-body .hljs-operator,
-.markdown-body .hljs-punctuation {
-  color: var(--text) !important;
-}
-
-.markdown-body .hljs-link {
-  color: var(--accent) !important;
-  text-decoration: underline;
-}
-
-.markdown-body .hljs-emphasis {
-  font-style: italic;
-}
-
-.markdown-body .hljs-strong {
-  font-weight: 700;
 }
 
 /* ===== Scrollbars ===== */

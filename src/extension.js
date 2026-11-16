@@ -12,7 +12,10 @@ const CSS_FILES = [
   "vscode-highlight.css",
   "mono.css",
   "toc.css",
+  "highlight-mono.css",
+  "code-blocks.css",
 ];
+const KATEX_CSS_FILE = "katex.css";
 
 // Local-only export service used by the globe button in the preview.
 // Keep these values in sync with media/toc.js in production.
@@ -21,6 +24,8 @@ const EXPORT_TOKEN = process.env.MONO_EXPORT_TOKEN || "mono-4d7c9a";
 
 let cachedCss = "";
 let cachedTocJs = "";
+let cachedCodeJs = "";
+let cachedKatexCss = "";
 let exportServer = null;
 
 function exportUrl(uri) {
@@ -36,14 +41,30 @@ async function readMedia(context, name) {
   return Buffer.from(data).toString("utf8");
 }
 
-async function loadAssets(context) {
+async function loadAssets(context, options = {}) {
   if (!cachedCss) {
     cachedCss = (
       await Promise.all(CSS_FILES.map((name) => readMedia(context, name)))
     ).join("\n\n");
     cachedTocJs = await readMedia(context, "toc.js");
+    cachedCodeJs = await readMedia(context, "code-blocks.js");
   }
-  return { css: cachedCss, tocJs: cachedTocJs };
+  if (options.math && !cachedKatexCss) {
+    cachedKatexCss = await readMedia(context, KATEX_CSS_FILE);
+  }
+  return {
+    css: cachedCss + (options.math ? "\n\n" + cachedKatexCss : ""),
+    tocJs: cachedTocJs,
+    codeJs: cachedCodeJs,
+  };
+}
+
+function containsMath(html) {
+  return (
+    /class="[^"]*\bkatex\b/.test(html) ||
+    html.includes("katex-display") ||
+    html.includes("katex-error")
+  );
 }
 
 function isMarkdownDocument(document) {
@@ -129,15 +150,21 @@ async function openInBrowser(context, arg) {
     return;
   }
 
+  const sourcePath = document.uri.fsPath;
+  try {
+    rendered = await inlineLocalImages(rendered, path.dirname(sourcePath));
+  } catch (error) {
+    // Keep the rendered HTML if an individual image cannot be read.
+  }
+
   let assets;
   try {
-    assets = await loadAssets(context);
+    assets = await loadAssets(context, { math: containsMath(rendered) });
   } catch (error) {
     vscode.window.showErrorMessage("Mono: 读取样式文件失败。");
     return;
   }
 
-  const sourcePath = document.uri.fsPath;
   const baseName = path.basename(sourcePath, path.extname(sourcePath));
   const safeName =
     baseName.replace(/[<>:"/\\|?*\x00-\x1f]/g, "-").trim() || "document";
@@ -149,6 +176,7 @@ async function openInBrowser(context, arg) {
     title: baseName,
     css: assets.css,
     tocJs: assets.tocJs,
+    codeJs: assets.codeJs,
     body: rendered,
   });
 
@@ -253,7 +281,7 @@ async function handleExportRequest(context, req, res) {
 
   let assets;
   try {
-    assets = await loadAssets(context);
+    assets = await loadAssets(context, { math: containsMath(rendered) });
   } catch (error) {
     send(res, 500, "text/plain; charset=utf-8", "Failed to read styles");
     return;
@@ -264,6 +292,7 @@ async function handleExportRequest(context, req, res) {
     title,
     css: assets.css,
     tocJs: assets.tocJs,
+    codeJs: assets.codeJs,
     body: rendered,
   });
   send(res, 200, "text/html; charset=utf-8", page);

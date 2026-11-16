@@ -1,0 +1,184 @@
+/*
+ * Mono Blue syntax highlighting.
+ *
+ * Based on the highlight.js "Mono Blue" theme — five colors from a single
+ * blue hue — then refined for Mono's black / white / gray + #1a88ff palette.
+ * Keywords, functions, strings, numbers, tags and attributes now occupy
+ * separate steps of the same blue-gray scale so larger files stay readable.
+ *
+ * highlight.js is distributed under the BSD-3-Clause license.
+ */
+
+body,
+body.vscode-light {
+  --mono-hl-keyword: #0057c8;
+  --mono-hl-string: #003f8f;
+  --mono-hl-number: #1a5fb4;
+  --mono-hl-function: #000000;
+  --mono-hl-type: #0048ab;
+  --mono-hl-tag: #0057c8;
+  --mono-hl-attr: #4a627a;
+  --mono-hl-var: #22384d;
+  --mono-hl-comment: #6f7b88;
+  --mono-hl-punct: #4a5563;
+}
+
+body.vscode-dark {
+  --mono-hl-keyword: #5aa9ff;
+  --mono-hl-string: #a6d4ff;
+  --mono-hl-number: #4da3ff;
+  --mono-hl-function: #ffffff;
+  --mono-hl-type: #8cc8ff;
+  --mono-hl-tag: #5aa9ff;
+  --mono-hl-attr: #9fb3c8;
+  --mono-hl-var: #d6e8f5;
+  --mono-hl-comment: #8a97a5;
+  --mono-hl-punct: #b8c4d0;
+}
+
+body.vscode-high-contrast {
+  --mono-hl-keyword: #8cc8ff;
+  --mono-hl-string: #d6e8f5;
+  --mono-hl-number: #66b3ff;
+  --mono-hl-function: #ffffff;
+  --mono-hl-type: #b8dcff;
+  --mono-hl-tag: #8cc8ff;
+  --mono-hl-attr: #c7d5e2;
+  --mono-hl-var: #ffffff;
+  --mono-hl-comment: #d0d0d0;
+  --mono-hl-punct: #e0e0e0;
+}
+
+/* Base text. The pre background and border come from mono.css. */
+.markdown-body .hljs {
+  color: var(--text) !important;
+}
+
+/* Comments and quoted prose. */
+.markdown-body .hljs-comment,
+.markdown-body .hljs-code,
+.markdown-body .hljs-formula {
+  color: var(--mono-hl-comment) !important;
+  font-style: italic;
+}
+
+/* Keywords and control flow. */
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-selector-tag,
+.markdown-body .hljs-doctag,
+.markdown-body .hljs-meta .hljs-keyword,
+.markdown-body .hljs-meta-keyword,
+.markdown-body .hljs-template-tag,
+.markdown-body .hljs-variable.language_ {
+  color: var(--mono-hl-keyword) !important;
+  font-weight: 700;
+}
+
+/* Functions, headings, class names and other entity names. */
+.markdown-body .hljs-title,
+.markdown-body .hljs-section,
+.markdown-body .hljs-title.class_,
+.markdown-body .hljs-title.class_.inherited__,
+.markdown-body .hljs-title.function_,
+.markdown-body .hljs-class .hljs-title {
+  color: var(--mono-hl-function) !important;
+  font-weight: 700;
+}
+
+/* Strings and their variants. */
+.markdown-body .hljs-string,
+.markdown-body .hljs-meta-string,
+.markdown-body .hljs-meta .hljs-string,
+.markdown-body .hljs-quote,
+.markdown-body .hljs-addition {
+  color: var(--mono-hl-string) !important;
+}
+
+/* Tags, types, selectors and imported names. */
+.markdown-body .hljs-tag,
+.markdown-body .hljs-selector-id,
+.markdown-body .hljs-selector-class,
+.markdown-body .hljs-selector-attr,
+.markdown-body .hljs-selector-pseudo {
+  color: var(--mono-hl-tag) !important;
+}
+
+.markdown-body .hljs-type,
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-builtin-name,
+.markdown-body .hljs-name {
+  color: var(--mono-hl-type) !important;
+}
+
+.markdown-body .hljs-name {
+  font-weight: 700;
+}
+
+/* Numbers, literals and compact symbols. */
+.markdown-body .hljs-number,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-symbol,
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-bullet,
+.markdown-body .hljs-meta,
+.markdown-body .hljs-link,
+.markdown-body .hljs-char.escape_ {
+  color: var(--mono-hl-number) !important;
+}
+
+/* Attributes and parameters of markup. */
+.markdown-body .hljs-attr,
+.markdown-body .hljs-attribute {
+  color: var(--mono-hl-attr) !important;
+}
+
+/* Variables, object properties and substitutions. */
+.markdown-body .hljs-variable,
+.markdown-body .hljs-template-variable,
+.markdown-body .hljs-subst,
+.markdown-body .hljs-property,
+.markdown-body .hljs-deletion {
+  color: var(--mono-hl-var) !important;
+}
+
+/* Punctuation stays quiet but is not pure foreground, which keeps
+ * operators and braces from visually merging with identifiers. */
+.markdown-body .hljs-operator,
+.markdown-body .hljs-punctuation {
+  color: var(--mono-hl-punct) !important;
+}
+
+.markdown-body .hljs-params {
+  color: var(--text) !important;
+}
+
+.markdown-body .hljs-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.markdown-body .hljs-emphasis {
+  color: var(--text) !important;
+  font-style: italic;
+}
+
+.markdown-body .hljs-strong {
+  color: var(--heading) !important;
+  font-weight: 700;
+}
+
+@media print {
+  body.vscode-dark,
+  body.vscode-high-contrast {
+    --mono-hl-keyword: #0057c8;
+    --mono-hl-string: #003f8f;
+    --mono-hl-number: #1a5fb4;
+    --mono-hl-function: #000000;
+    --mono-hl-type: #0048ab;
+    --mono-hl-tag: #0057c8;
+    --mono-hl-attr: #4a627a;
+    --mono-hl-var: #22384d;
+    --mono-hl-comment: #6f7b88;
+    --mono-hl-punct: #4a5563;
+  }
+}

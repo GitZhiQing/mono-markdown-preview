@@ -1,0 +1,151 @@
+/*
+ * Code block enhancements for the Mono preview and exported HTML:
+ * line numbers, an optional wrap toggle, and a copy button.
+ */
+
+.mono-code-block {
+  position: relative;
+  margin: 1.4em 0;
+}
+
+.markdown-body .mono-code-block > pre {
+  margin: 0 !important;
+  padding-top: 2.55em !important;
+  counter-reset: mono-code-line;
+}
+
+.mono-code-line {
+  display: block;
+  position: relative;
+  min-height: 1.6em;
+  padding-left: 3.2em;
+}
+
+.mono-code-line::before {
+  counter-increment: mono-code-line;
+  content: counter(mono-code-line);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.3em;
+  color: var(--faint, #737373);
+  text-align: right;
+  font-size: 0.84em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.905;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Keep a literal newline in textContent for VS Code's scroll sync, but do
+ * not let it create a visual blank line between block-level code lines. */
+.mono-code-break {
+  display: none;
+}
+
+.mono-code-block > pre.mono-code-wrap .mono-code-line,
+body.wordWrap .mono-code-block > pre:not(.mono-code-nowrap) .mono-code-line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.mono-code-block > pre.mono-code-nowrap .mono-code-line {
+  white-space: pre;
+  overflow-wrap: normal;
+}
+
+.mono-code-toolbar {
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+.mono-code-block:hover .mono-code-toolbar,
+.mono-code-toolbar:focus-within {
+  opacity: 1;
+}
+
+.mono-code-meta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted, #666666);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.mono-code-icon {
+  display: block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: var(--accent, #1a88ff);
+}
+
+.mono-code-lang {
+  overflow: hidden;
+  color: var(--muted, #666666);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mono-code-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+  pointer-events: auto;
+}
+
+.mono-code-action {
+  padding: 1px 7px;
+  border: 1px solid var(--border, #e3e3e3);
+  border-radius: 2px;
+  background: var(--bg, #ffffff);
+  color: var(--muted, #666666);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mono-code-action:hover,
+.mono-code-action:focus-visible {
+  border-color: var(--accent, #1a88ff);
+  color: var(--accent, #1a88ff);
+  outline: none;
+}
+
+.mono-code-action[aria-pressed="true"] {
+  border-color: var(--accent, #1a88ff);
+  color: var(--accent, #1a88ff);
+}
+
+/* Do not force a horizontal scrollbar on short, wrapped blocks. */
+.mono-code-block > pre.mono-code-wrap {
+  overflow-x: hidden;
+}
+
+@media print {
+  .mono-code-toolbar {
+    display: none !important;
+  }
+
+  .markdown-body .mono-code-block > pre {
+    padding-top: 1em !important;
+  }
+}

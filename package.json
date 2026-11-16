@@ -1,8 +1,8 @@
 {
   "name": "mono-markdown-preview",
   "displayName": "Mono Markdown Preview",
-  "description": "为 VS Code 原生 Markdown 预览提供极简高对比样式、浮动目录和浏览器 HTML 导出。",
-  "version": "1.3.3",
+  "description": "为 VS Code 原生 Markdown 预览提供极简高对比样式、浮动目录、代码块行号与浏览器 HTML 导出。",
+  "version": "1.4.0",
   "publisher": "local",
   "license": "MIT",
   "engines": {
@@ -84,11 +84,16 @@
     },
     "markdown.previewStyles": [
       "./media/mono.css",
-      "./media/toc.css"
+      "./media/toc.css",
+      "./media/highlight-mono.css",
+      "./media/code-blocks.css"
     ],
     "markdown.previewScripts": [
       {
         "path": "./media/toc.js"
+      },
+      {
+        "path": "./media/code-blocks.js"
       }
     ]
   }

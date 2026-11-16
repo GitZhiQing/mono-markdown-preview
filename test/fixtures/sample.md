@@ -42,6 +42,14 @@ const result = fibonacci(10);
 console.log(`fib(10) = ${result}`);
 ```
 
+### 数学
+
+行内公式 $E = mc^2$，块级公式：
+
+$$
+\int_0^1 x^2 \, dx = \frac{1}{3}
+$$
+
 ### 表格
 
 | 主题 | 气质 | 适合场景 |

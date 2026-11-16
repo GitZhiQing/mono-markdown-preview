@@ -19,7 +19,10 @@ const exportUrl =
 const sampleHtml = `<h1 id="quiet-power">安静的力量</h1>
 <h2 id="principles">设计原则</h2>
 <p>正文 <code>inline</code></p>
-<p><img src="figure.svg" alt="figure"></p>`;
+<p><img src="figure.svg" alt="figure"></p>
+<pre class="hljs code-line" data-line="10"><code class="code-line language-javascript" data-line="10"><span class="hljs-keyword">const</span> answer = <span class="hljs-number">42</span>;
+console.log(answer);</code></pre>
+<p><span class="katex"><span class="katex-mathml">E=mc^2</span></span></p>`;
 
 const mockVscode = {
   Uri: {
@@ -105,7 +108,11 @@ async function main() {
     "image:",
     html.includes("data:image/svg+xml;base64,"),
     "toc:",
-    html.includes("mono-toc-root")
+    html.includes("mono-toc-root"),
+    "katex:",
+    html.includes("data:font/woff2;base64,"),
+    "code:",
+    html.includes("mono-code-action")
   );
 
   const denied = await fetch(
